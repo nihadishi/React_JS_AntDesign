@@ -13,10 +13,6 @@ const Tables = () => {
 
     }, [])
 
-
-    const confirmDelete = () => {
-            
-   }
 const DeleteItems = (id) => {
     setdatas(datas.filter(res => res.id !== id))
 }
@@ -26,29 +22,47 @@ const columns = [
         dataIndex: 'customerId',
         filters: [
             {
-              text: 'Joe',
-              value: 'Joe',
+              text: 'SPLIR',
+              value: 'SPLIR',
             },
             {
-              text: 'Jim',
-              value: 'Jim',
+              text: 'WARTH',
+              value: 'WARTH',
             },
             {
-              text: '...',
+              text: 'MORE',
               value: 'Submenu',
               children: [
+                // datas.map((e)=>{
+                //     {
+                //         text: e.customerId,
+                //         value: e.customerId,
+                //     }
+                // })
                 {
-                  text: 'Green',
-                  value: 'Green',
+                  text: 'LEHMS',
+                  value: 'LEHMS',
                 },
                 {
-                  text: 'Black',
-                  value: 'Black',
+                  text: 'TRADH',
+                  value: 'TRADH',
+                },
+                {
+                  text: 'VINET',
+                  value: 'VINET',
+                },
+                {
+                  text: 'QUICK',
+                  value: 'QUICK',
+                },
+                {
+                  text: 'LONEP',
+                  value: 'LONEP',
                 },
               ],
             },
           ],
-          onFilter: (e) => e.customerId.indexOf()
+          onFilter: (value,e) => e.customerId == value
     },
     {
         title: 'FREIGHT',
