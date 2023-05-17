@@ -3,6 +3,7 @@ import { Button, Table } from 'antd'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { ConfigProvider,Modal  } from 'antd';
+import moment from 'moment/moment';
 
 const Tables = () => {
     const [datas, setdatas] = useState([])
@@ -72,15 +73,31 @@ const columns = [
     {
         title: 'orderDate',
         dataIndex: 'orderDate',
-        sorter: (a,b) => a.freight-b.freight
+        sorter: (a,b) => a.freight-b.freight,
+        render:(e)=>{
+          <div>
+            <p>{moment(e).format('MMMM Do YYYY, h:mm:ss a')}</p>
+          </div>
+        }
     },
     {
         title: 'requiredDate',
         dataIndex: 'requiredDate',
+        render:(e)=>{
+          <div>
+            {moment(e).format("MMM Do YYYY")}
+          </div>
+        }
+        
     },
     {
         title: 'shippedDate',
         dataIndex: 'shippedDate',
+        render:(e)=>{
+          <div>
+            {moment(e).format("MMM Do YYYY")}
+          </div>
+        }
     },
     //     sorter: (a, b) => a.contactName.localeCompare(b.contactName)
     {
