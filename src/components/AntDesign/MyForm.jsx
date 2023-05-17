@@ -1,19 +1,32 @@
+import { RadioGroup } from '@mui/material'
 import { Button, Form, Input } from 'antd'
 import { Field, Formik } from 'formik'
 import React from 'react'
 import * as Yup from 'yup'
-
 const MyForm = () => {
   const SignupSchema = Yup.object().shape({
     firstName: Yup.string()
-      .max(50, 'Max 50 character must be!')
+      .max(50, 'Maksimum 50 simvol olmalidir!')
       .required('Bos olmaz'),
     lastName: Yup.string()
-    .max(50, 'Max 50 character must be!')
-    .required('Bos olmaz'),
-    email: Yup.string().email('Invalid email').required('Required'),
+      .max(50, 'Maksimum 50 simvol olmalidir!')
+      .required('Bos olmaz'),
+    email: Yup.string()
+      .email('Yalnis email')
+      .required('Bos olmaz')
+      .matches(/@code.edu.az/, '@code.edu.az ile biten mail olmalidir!'),
+
+    radioGroup: Yup.string()
+      .required("A radio option is required"),
+
+    password: Yup.string()
+      .min(8, 'minimum 8 simvol olmalidir'),
+    confirmpassword: Yup.string()
+      .min(8, 'minimum 8 simvol olmalidir')
+      .oneOf([Yup.ref('password')], 'Parolunuzu dogru testiqleyin!'),
+
   });
-  return(<>
+  return (<>
     <div>
       <h1>Signup</h1>
       <Formik
@@ -21,32 +34,70 @@ const MyForm = () => {
           firstName: '',
           lastName: '',
           email: '',
+          password: '',
+          confirmpassword: ''
         }}
         validationSchema={SignupSchema}
-        onSubmit={values => {console.log(values)}}
+        onSubmit={values => { console.log(values) }}
       >
         {({ errors, touched }) => (
           <Form>
-            
-            Name:<Field name="firstName" />
-            {errors.firstName && touched.firstName ? (          
-              <div>{errors.firstName}</div>
-            ) : null}
 
-            Surname:<Field name="lastName" />
-            {errors.lastName && touched.lastName ? (
-              <div>{errors.lastName}</div>
-            ) : null}
+            <div> Name:<Field name="firstName" />
+              {errors.firstName && touched.firstName ? (
+                <div style={{ color: 'red' }}>{errors.firstName}</div>
+              ) : <div>_</div>}
+            </div>
 
-            Email:<Field name="email" type="email" />
-            {errors.email && touched.email ? <div>{errors.email}</div> : null}
+            <div>Surname:<Field name="lastName" />
+              {errors.lastName && touched.lastName ? (
+                <div style={{ color: 'red' }}>{errors.lastName}</div>
+              ) : <div>_</div>}
+            </div>
 
-            <button type="submit">Submit</button>
+            <div> Email:<Field name="email" type="email" />
+              {errors.email && touched.email ? <div style={{ color: 'red' }}>{errors.email}</div> : <div>_</div>}
+            </div>
+
+            <div>
+              <RadioGroup
+                id="gender"
+                label="Cinsinizi secin"
+                value={values.radioGroup}
+                error={errors.radioGroup}
+                touched={touched.radioGroup}
+              >
+                <Field
+                  component={RadioButton}
+                  name="female"
+                  id="female"
+                  label="Qadin"
+                />
+                <Field
+                  component={RadioButton}
+                  name="male"
+                  id="male"
+                  label="Kisi"
+                />
+              </RadioGroup>
+            </div>
+
+            <div>Password:<Field name="password" type="password" />
+              {errors.password && touched.password ? <div style={{ color: 'red' }}>{errors.password}</div> : <div>_</div>}
+            </div>
+
+            <div>Confirm password:<Field name="confirmpassword" type="password" />
+              {errors.confirmpassword && touched.confirmpassword ? <div style={{ color: 'red' }}>{errors.confirmpassword}</div> : <div>_</div>}
+            </div>
+
+            <div>
+              <button type="submit">Submit</button>
+            </div>
           </Form>
         )}
       </Formik>
     </div>
-    </>)
+  </>)
 }
 
 export default MyForm
