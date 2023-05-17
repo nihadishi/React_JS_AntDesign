@@ -1,4 +1,4 @@
-import { RadioGroup } from '@mui/material'
+
 import { Button, Form, Input } from 'antd'
 import { Field, Formik } from 'formik'
 import React from 'react'
@@ -16,8 +16,7 @@ const MyForm = () => {
       .required('Bos olmaz')
       .matches(/@code.edu.az/, '@code.edu.az ile biten mail olmalidir!'),
 
-    radioGroup: Yup.string()
-      .required("A radio option is required"),
+    gender: Yup.string(),
 
     password: Yup.string()
       .min(8, 'minimum 8 simvol olmalidir'),
@@ -35,7 +34,7 @@ const MyForm = () => {
           lastName: '',
           email: '',
           password: '',
-          confirmpassword: ''
+          confirmpassword: '',
         }}
         validationSchema={SignupSchema}
         onSubmit={values => { console.log(values) }}
@@ -60,27 +59,11 @@ const MyForm = () => {
             </div>
 
             <div>
-              <RadioGroup
-                id="gender"
-                label="Cinsinizi secin"
-                value={values.radioGroup}
-                error={errors.radioGroup}
-                touched={touched.radioGroup}
-              >
-                <Field
-                  component={RadioButton}
-                  name="female"
-                  id="female"
-                  label="Qadin"
-                />
-                <Field
-                  component={RadioButton}
-                  name="male"
-                  id="male"
-                  label="Kisi"
-                />
-              </RadioGroup>
+            
+            Kishi<Field name="gender" type="radio" />
+            Qadin<Field name="gender" type="radio" />
             </div>
+     
 
             <div>Password:<Field name="password" type="password" />
               {errors.password && touched.password ? <div style={{ color: 'red' }}>{errors.password}</div> : <div>_</div>}
